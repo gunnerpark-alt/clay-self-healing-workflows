@@ -1,0 +1,10 @@
+# Never commit real credentials to this repo.
+clay-config.json
+**/clay-config*.json
+.env
+.env.*
+
+# Local scratch used by apply scripts
+/tmp/
+*.pyc
+__pycache__/

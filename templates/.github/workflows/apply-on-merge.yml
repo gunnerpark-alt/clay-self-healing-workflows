@@ -1,0 +1,35 @@
+name: Apply Clay config on merge
+on:
+  push:
+    branches: [main]
+    paths: ["workflows/**", "audiences/**"]
+  workflow_dispatch:
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Clay CLI
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=$(gh release list -R clay-run/agent-plugins --limit 40 --json tagName -q '.[].tagName' | grep '^clay-cli-v' | head -1)
+          gh release download "$tag" -R clay-run/agent-plugins -p clay-linux-x64 -O /usr/local/bin/clay
+          chmod +x /usr/local/bin/clay
+          clay --version
+
+      - name: Restore Clay credentials
+        env:
+          CLAY_OAUTH_CONFIG: ${{ secrets.CLAY_OAUTH_CONFIG }}
+        run: |
+          mkdir -p "$HOME/.config/clay"
+          echo "$CLAY_OAUTH_CONFIG" | base64 -d > "$HOME/.config/clay/config.json"
+          clay whoami | head -c 200
+
+      - name: Apply workflow config
+        run: python3 tools/apply_workflows.py --write --publish
+
+      - name: Apply audience config
+        run: python3 tools/apply_audiences.py --write
