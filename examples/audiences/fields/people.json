@@ -1,0 +1,26 @@
+[
+  {
+    "id": "fld_example_headcount",
+    "name": "Company headcount",
+    "description": "Employee count at time of enrichment",
+    "entityType": "people",
+    "fieldType": "enrichment",
+    "dataType": "number",
+    "hidden": false,
+    "order": "iiiiii",
+    "isDefaultField": false,
+    "isSystemField": false
+  },
+  {
+    "id": "fld_example_campaign_variant",
+    "name": "Campaign variant",
+    "description": "Which champion/challenger copy this person received",
+    "entityType": "people",
+    "fieldType": "scalar",
+    "dataType": "text",
+    "hidden": false,
+    "order": "mmmmmm",
+    "isDefaultField": false,
+    "isSystemField": false
+  }
+]

@@ -1,0 +1,54 @@
+{
+  "workflowId": "wf_example00000000000000",
+  "workflowName": "Inbound Lead Routing (example)",
+  "triggers": [
+    {
+      "id": "wfn_example_trigger",
+      "name": "T1 · Webhook",
+      "nodeType": "trigger",
+      "triggerType": "webhook"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "wfn_example_trigger",
+      "name": "T1 · Webhook",
+      "nodeType": "trigger"
+    },
+    {
+      "id": "wfn_example_segment",
+      "name": "E1 · Segment Account",
+      "nodeType": "agent",
+      "agentPromptFile": "nodes/segment-account.prompt.md",
+      "incomingEdges": [
+        { "sourceNode": "wfn_example_trigger" }
+      ],
+      "inputSchema": {
+        "properties": {
+          "company_name": { "type": "string" },
+          "employee_count": { "type": "number" }
+        }
+      },
+      "outputSchema": {
+        "properties": {
+          "segment": { "type": "string" },
+          "confidence": { "type": "string" }
+        },
+        "required": ["confidence", "segment"]
+      }
+    },
+    {
+      "id": "wfn_example_parse",
+      "name": "E2 · Parse Verdict",
+      "nodeType": "code",
+      "codeFile": "nodes/parse-verdict.py",
+      "incomingEdges": [
+        { "sourceNode": "wfn_example_segment" }
+      ]
+    }
+  ],
+  "edges": [
+    { "sourceNodeId": "wfn_example_segment", "targetNodeId": "wfn_example_parse" },
+    { "sourceNodeId": "wfn_example_trigger", "targetNodeId": "wfn_example_segment" }
+  ]
+}

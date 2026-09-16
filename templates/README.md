@@ -19,7 +19,7 @@ tools/apply_audiences.py                repo -> Clay
 
 Records and activities aren't here on purpose. Those are data, not config. That's the same reason workflow *runs* aren't versioned, only the workflow *definition* is. Don't add customer or lead data to this repo.
 
-Functions aren't here either. There's no CRUD for them through the CLI as of this writing — you can read them through the Table Read API, but not edit them this way.
+Functions aren't here either. There's no CRUD for them through the CLI as of this writing. You can read them through the Table Read API, but not edit them this way.
 
 ## Setup
 
@@ -27,7 +27,7 @@ Functions aren't here either. There's no CRUD for them through the CLI as of thi
 2. Find the workflows you want to track: `clay workflows list`.
 3. `python3 tools/pull_workflows.py <workflowId> [<workflowId> ...]`
 4. If you also want Audience config tracked: `python3 tools/pull_audiences.py`
-5. Run the same pull command a second time. The diff should be empty. If it isn't, something in your workspace's graph isn't canonicalizing the way these scripts expect — worth digging into before you trust the diffs `apply_*.py` produces later.
+5. Run the same pull command a second time. The diff should be empty. If it isn't, something in your workspace's graph isn't canonicalizing the way these scripts expect. That's worth digging into before you trust the diffs `apply_*.py` produces later.
 6. Commit, push, open the repo on GitHub.
 
 ## Making a change
@@ -57,9 +57,9 @@ clay login                                   # a dedicated login just for CI
 base64 -i ~/.config/clay/config.json | gh secret set CLAY_OAUTH_CONFIG
 ```
 
-This secret will eventually go stale, again because of the refresh-token rotation — expect to redo this occasionally. That's a reasonable tradeoff for most teams.
+This secret will eventually go stale, again because of the refresh-token rotation. Expect to redo this occasionally; that's a reasonable tradeoff for most teams.
 
-If you want the Action to stay working indefinitely without you touching it, there's a self-sustaining variant: the Action commits its own rotated credential back to the repo at the end of every run, instead of reading a static secret. That removes the maintenance step, but it also means the credential sits in plaintext in a file anyone with read access to this repo can see. Only do this on a private repo with tightly controlled access — never on anything public or widely shared.
+If you want the Action to stay working indefinitely without you touching it, there's a self-sustaining variant: the Action commits its own rotated credential back to the repo at the end of every run, instead of reading a static secret. That removes the maintenance step, but it also means the credential sits in plaintext in a file anyone with read access to this repo can see. Only do this on a private repo with tightly controlled access, never on anything public or widely shared.
 
 ## Going further
 

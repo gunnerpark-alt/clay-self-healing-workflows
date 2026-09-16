@@ -1,0 +1,29 @@
+{
+  "id": "audseg_example_stale_leads",
+  "name": "Stale enterprise leads",
+  "description": "Enterprise-segment people not touched in 90+ days",
+  "entityType": "people",
+  "filter": {
+    "type": "GroupOp",
+    "combinationMode": "And",
+    "items": [
+      {
+        "type": "BinOp",
+        "key": "segment",
+        "dataPath": ["contact_entity_field_values", "field", "segment"],
+        "operator": "Equal",
+        "value": "ENTERPRISE",
+        "entityType": "CONTACT"
+      },
+      {
+        "type": "BinOp",
+        "key": "updated_at",
+        "dataPath": ["contact_entity_field_values", "field", "updated_at"],
+        "operator": "NotWithinLast",
+        "value": 90,
+        "timeUnit": "day",
+        "entityType": "CONTACT"
+      }
+    ]
+  }
+}
