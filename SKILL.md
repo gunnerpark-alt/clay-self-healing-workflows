@@ -5,7 +5,7 @@ description: Scaffold a repo that mirrors your Clay Workflows and Audiences conf
 
 # Clay self-healing workflows — starter kit
 
-This scaffolds a repo where your Clay Workflows and Audiences config live as files, get reviewed as pull requests, and get applied back to Clay by a GitHub Action on merge. It's the same pattern Gunner Park used for the Sculpt talk, generalized and stripped of anything workspace-specific.
+This scaffolds a repo where your Clay Workflows and Audiences config live as files, get reviewed as pull requests, and get applied back to Clay by a GitHub Action on merge.
 
 It does not include any credentials, workspace IDs, or account setup for you. You provide your own Clay login; nothing here can touch anyone else's workspace.
 
