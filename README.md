@@ -1,6 +1,6 @@
 # Clay self-healing workflows — starter kit
 
-A starter kit for mirroring Clay Workflows and Audiences config into a git repo, reviewing changes as pull requests, and applying them back to Clay on merge. This is the pattern from Gunner Park's Sculpt talk, generalized and stripped of anything workspace-specific: no credentials, no real workspace IDs, nothing here can touch anyone's Clay workspace on its own.
+A starter kit for mirroring Clay Workflows and Audiences config into a git repo, reviewing changes as pull requests, and applying them back to Clay on merge. This is generalized and stripped of anything workspace-specific: no credentials, no real workspace IDs, nothing here can touch anyone's Clay workspace on its own.
 
 ## What's in this repo
 
